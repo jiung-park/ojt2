@@ -47,8 +47,41 @@ public class FlowController {
 
     @GetMapping("/{flowId}")
     public ResponseEntity<FlowDto> getFlow(@PathVariable Long flowId) {
-        System.out.println("flowId = " + flowId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        FlowDto flowDto = flowService.getFlow(flowId);
+        return ResponseEntity.ok(flowDto);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Void> updateFlow() {
+        StepDto messageStep = StepDto.builder()
+                .id(4L)
+                .stepType(StepType.message)
+                .name("update step")
+                .build();
+
+        StepDto websiteStep = StepDto.builder()
+                .name("neeew step")
+                .stepType(StepType.website)
+                .url("new.com")
+                .build();
+
+        List<StepDto> steps = List.of(messageStep, websiteStep);
+
+        FlowDto flowDto = FlowDto.builder()
+                .id(1L)
+                .name("update flow")
+                .steps(steps)
+                .build();
+
+
+        flowService.updateFlow(flowDto);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{flowId}")
+    public ResponseEntity<Void> deleteFlow(@PathVariable Long flowId) {
+        flowService.deleteFlow(flowId);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.tmax.project.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "stepType")
+@NoArgsConstructor
 public abstract class Step {
 
     @Id
